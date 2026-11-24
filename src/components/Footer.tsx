@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
 
+/** Placeholder GitHub profile until the owner supplies the real URL. */
+const GITHUB_PROFILE_URL = "https://github.com/example";
+
+/** Placeholder LinkedIn profile until the owner supplies the real URL. */
+const LINKEDIN_PROFILE_URL = "https://www.linkedin.com/in/example";
+
 /**
  * The site footer, shown at the bottom of every page by the root layout.
  *
@@ -8,10 +14,8 @@ import type { ReactNode } from "react";
  * - "GitHub", to a profile URL starting with `https://github.com/`, and
  * - "LinkedIn", to a profile URL starting with `https://www.linkedin.com/in/`.
  *
- * Both are plain `<a>` links that open in the same tab. The profile URLs are
- * placeholders (`https://github.com/example`,
- * `https://www.linkedin.com/in/example`) until the owner supplies the real
- * ones.
+ * Both links open in the same tab. The profile URLs are placeholders until
+ * the owner supplies the real ones.
  *
  * Takes no props. Synchronous, per PCR-0002. No side effects.
  *
@@ -20,8 +24,8 @@ import type { ReactNode } from "react";
 export function Footer(): ReactNode {
   return (
     <footer>
-      <a href="https://github.com/example">GitHub</a>
-      <a href="https://www.linkedin.com/in/example">LinkedIn</a>
+      <a href={GITHUB_PROFILE_URL}>GitHub</a>
+      <a href={LINKEDIN_PROFILE_URL}>LinkedIn</a>
     </footer>
   );
 }

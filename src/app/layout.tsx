@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 /**
  * Props for {@link RootLayout}.
  */
-export type RootLayoutProps = {
+type RootLayoutProps = {
   /** The page Next.js is rendering for the current URL. Required. */
   children: ReactNode;
 };

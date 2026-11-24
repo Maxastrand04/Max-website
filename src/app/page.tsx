@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
 
+import { Bio } from "@/components/Bio";
+import { Hero } from "@/components/Hero";
+import { homeContent } from "@/content/home";
+
 /**
  * The home page, served at `/` and built to `out/index.html`.
  *
@@ -21,5 +25,10 @@ import type { ReactNode } from "react";
  * @returns The home page content.
  */
 export default function HomePage(): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <>
+      <Hero {...homeContent.hero} />
+      <Bio {...homeContent.bio} />
+    </>
+  );
 }

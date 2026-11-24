@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import type { HeroContent } from "@/content/home";
+import Image from "next/image";
+import type { HeroContent } from "@/types/home";
 
 /**
  * The hero section at the top of the home page.
@@ -24,5 +25,20 @@ import type { HeroContent } from "@/content/home";
  * @returns The hero section element.
  */
 export function Hero(props: HeroContent): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <section aria-label={props.name}>
+      <Image
+        src={props.photo.src}
+        alt={props.photo.alt}
+        width={props.photo.width}
+        height={props.photo.height}
+        unoptimized
+      />
+      <h1>{props.name}</h1>
+      <p>{props.title}</p>
+      <a href={props.cv.href} download={props.cv.fileName}>
+        Download CV
+      </a>
+    </section>
+  );
 }

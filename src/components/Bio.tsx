@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { BioContent } from "@/content/home";
+import type { BioContent } from "@/types/home";
 
 /**
  * The bio section, shown under the hero on the home page.
@@ -17,5 +17,12 @@ import type { BioContent } from "@/content/home";
  * @returns The bio section element.
  */
 export function Bio(props: BioContent): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <section aria-label={props.heading}>
+      <h2>{props.heading}</h2>
+      {props.paragraphs.map((text, index) => (
+        <p key={index}>{text}</p>
+      ))}
+    </section>
+  );
 }

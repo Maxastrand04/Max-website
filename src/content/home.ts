@@ -2,16 +2,17 @@
  * Text and file references for the home page, kept apart from layout so
  * changing any of it never touches a component or page file.
  *
- * The prop types live in `@/types/home`. They are re-exported here so
- * existing imports from this module keep working.
+ * The section prop types live in `@/types/home`. `BioContent` and
+ * `HeroContent` are re-exported here so callers can import them from either
+ * module.
  */
 
 import type { BioContent, HeroContent } from "@/types/home";
 
-export type { BioContent, Cv, HeroContent, Photo } from "@/types/home";
+export type { BioContent, HeroContent } from "@/types/home";
 
 /** All content on the home page, one entry per section. */
-export type HomeContent = {
+type HomeContent = {
   /** Required. */
   hero: HeroContent;
   /** Required. */

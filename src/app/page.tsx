@@ -14,8 +14,7 @@ import { homeContent } from "@/content/home";
  * All text, the photo and the CV come from `homeContent` in
  * `src/content/home.ts`. This file holds layout only, so editing any of
  * that text never touches this file. The page's only `<h1>` is the owner's
- * name, inside the hero. The old "Home" heading and placeholder paragraph
- * are gone.
+ * name, inside the hero.
  *
  * It renders no header, footer or `<main>` of its own; the root layout
  * supplies those.

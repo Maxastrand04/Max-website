@@ -1,11 +1,12 @@
 /**
  * Prop types for the home page sections. Lives outside `src/content/` so
  * section components can import their props without importing content,
- * per ADR-0001. Content and page files import these types from here.
+ * per ADR-0001. Section components and content files import these types
+ * from here.
  */
 
 /** The owner's photo, a file in `public/`. */
-export type Photo = {
+type Photo = {
   /** Site-root path to the image, such as `/photo.jpg`. Required. */
   src: string;
   /**
@@ -20,7 +21,7 @@ export type Photo = {
 };
 
 /** The owner's CV, a PDF in `public/`. */
-export type Cv = {
+type Cv = {
   /** Site-root path to the PDF, such as `/cv.pdf`. Required. */
   href: string;
   /**

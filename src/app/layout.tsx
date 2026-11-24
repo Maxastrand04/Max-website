@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import "./globals.css";
 
 /**
  * Props for {@link RootLayout}.

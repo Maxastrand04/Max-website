@@ -13,5 +13,10 @@ import type { ReactNode } from "react";
  * @returns The contact page content.
  */
 export default function ContactPage(): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <>
+      <h1>Contact</h1>
+      <p>Placeholder text for the contact page.</p>
+    </>
+  );
 }

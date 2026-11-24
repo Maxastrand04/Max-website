@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 /**
  * The site header, shown at the top of every page by the root layout.
@@ -17,5 +18,13 @@ import type { ReactNode } from "react";
  * @returns The header element.
  */
 export function Header(): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <header>
+      <Link href="/">Max Åstrand</Link>
+      <nav>
+        <Link href="/">Home</Link>
+        <Link href="/contact">Contact</Link>
+      </nav>
+    </header>
+  );
 }

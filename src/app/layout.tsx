@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 
 /**
  * Props for {@link RootLayout}.
@@ -23,5 +25,13 @@ export type RootLayoutProps = {
  * @returns The full document for that page.
  */
 export default function RootLayout({ children }: RootLayoutProps): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <html lang="en">
+      <body>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
 }

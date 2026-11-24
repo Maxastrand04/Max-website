@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 /**
  * The not-found page, shown for any path that matches no page. Static
@@ -14,5 +15,10 @@ import type { ReactNode } from "react";
  * @returns The not-found page content.
  */
 export default function NotFound(): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <>
+      <h1>Page not found</h1>
+      <Link href="/">Back to home</Link>
+    </>
+  );
 }

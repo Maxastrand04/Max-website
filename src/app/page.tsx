@@ -12,5 +12,10 @@ import type { ReactNode } from "react";
  * @returns The home page content.
  */
 export default function HomePage(): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <>
+      <h1>Home</h1>
+      <p>Placeholder text for the home page.</p>
+    </>
+  );
 }

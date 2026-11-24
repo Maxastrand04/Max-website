@@ -18,5 +18,10 @@ import type { ReactNode } from "react";
  * @returns The footer element.
  */
 export function Footer(): ReactNode {
-  throw new Error("Not implemented");
+  return (
+    <footer>
+      <a href="https://github.com/example">GitHub</a>
+      <a href="https://www.linkedin.com/in/example">LinkedIn</a>
+    </footer>
+  );
 }

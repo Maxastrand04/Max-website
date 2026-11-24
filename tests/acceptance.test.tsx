@@ -90,6 +90,11 @@ describe("CV download", () => {
     expect(existsSync(join(publicDir, href))).toBe(true);
   });
 
+  it("links to a .pdf file", () => {
+    const link = within(heroRegion()).getByRole("link", { name: "Download CV" });
+    expect(link.getAttribute("href")).toMatch(/\.pdf$/);
+  });
+
   it("tells the browser to download the file rather than open it", () => {
     const link = within(heroRegion()).getByRole("link", { name: "Download CV" });
     expect(link).toHaveAttribute("download");

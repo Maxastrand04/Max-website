@@ -9,14 +9,9 @@ import type { ContactLinksContent } from "@/types/contact";
 
 export type { ContactLinksContent } from "@/types/contact";
 
-/**
- * The owner's contact links.
- *
- * `email` and `linkedinUrl` are placeholders until the owner supplies the
- * real ones.
- */
+/** The owner's contact links. */
 export const contactLinks: ContactLinksContent = {
-  email: "hello@example.com",
+  email: "maxastrand04@hotmail.com",
   githubUrl: "https://github.com/Maxastrand04",
-  linkedinUrl: "https://www.linkedin.com/in/example",
+  linkedinUrl: "https://www.linkedin.com/in/max-%C3%A5strand-1a61113a0/",
 };

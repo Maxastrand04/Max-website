@@ -1,3 +1,5 @@
+# Only Traefik may reach the site. Kubelet probes come from the node itself,
+# which Cilium allows by default, so they need no rule here.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -12,7 +14,12 @@ spec:
     - Ingress
   ingress:
     - from:
-        - podSelector: {}
-    - ports:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+      ports:
         - port: 8080
           protocol: TCP

@@ -18,5 +18,9 @@ export default defineConfig({
     environment: "jsdom",
     include: ["tests/**/*.test.{ts,tsx}"],
     setupFiles: ["tests/setup.ts"],
+    // Run one test file at a time. tests/next.config.test.ts runs a full
+    // `next build` (about 100s) and would otherwise starve the component
+    // tests of CPU on the shared CI node, causing spurious 5s timeouts.
+    fileParallelism: false,
   },
 });

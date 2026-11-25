@@ -32,7 +32,7 @@ stages:
     kind: "checkout"
   - name: "test"
     kind: "run"
-    image: "node:24-alpine"
+    image: "node:26-alpine"
     run: "npm ci && npm test"
     needs:
       - "checkout"

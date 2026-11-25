@@ -139,7 +139,9 @@ Ingress `max-website` with annotation `cert-manager.io/cluster-issuer: ${{ ankra
 
 ### NetworkPolicy (`networkpolicy.yaml`)
 
-Applies to the `max-website` pods, ingress direction only, with two rules (`networkpolicy.yaml:13-18`). Rule one allows any pod in the same namespace on any port. Rule two allows any source on `8080/TCP`. Kubernetes ORs the rules of a policy together ([Kubernetes docs, Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)), so in practice any source can reach port 8080, which is the only port the container listens on. The policy restricts nothing that matters today. Since Traefik runs in a different namespace (`traefik`), rule two is what lets it through.
+Applies to the `max-website` pods, ingress direction only, with one rule (`networkpolicy.yaml`). It allows only pods labelled `app.kubernetes.io/name: traefik` in the `traefik` namespace, on `8080/TCP`. The live cluster confirms both: the two Traefik pods carry that label and run in namespace `traefik` (`get_pods`, label selector `app.kubernetes.io/name=traefik`). Kubelet probes come from the node, which Cilium allows by default; `cilium-config` sets no `allow-localhost` override.
+
+Before this branch the policy had two rules, and the second allowed any source on `8080/TCP`. Kubernetes ORs rules together ([Kubernetes docs, Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)), so the old policy blocked nothing.
 
 ## 4. CI/CD
 
@@ -156,7 +158,7 @@ Triggers: push to `main`, pull requests against `main` (forks get `read_only`), 
 | Stage | Kind | What it does | Lines |
 | --- | --- | --- | --- |
 | `checkout` | checkout | clones the repo | 31-32 |
-| `test` | run | `npm ci && npm test` in `node:24-alpine`, with an npm cache keyed on `package-lock.json` | 33-51 |
+| `test` | run | `npm ci && npm test` in `node:26-alpine`, with an npm cache keyed on `package-lock.json` | 33-51 |
 | `build` | build | builds the `Dockerfile`, with provenance and an SBOM (software bill of materials) | 52-59 |
 | `scan` | scan | Semgrep (`p/default p/docker p/github-actions p/javascript`), Checkov, Trivy. Fails on Semgrep `error` and Trivy findings in the app layer; Checkov never fails the run | 60-76 |
 | `gate` | gate | requires `scan` to pass | 77-83 |
@@ -272,7 +274,7 @@ The live Ingress carries an annotation that is not in the repo file: `traefik.in
 1. `ingress_enabled` defaults to `false` (`.ankra/ankra.yaml:53-57`), yet a live Ingress exists and serves the site. `ingress_host` and `ingress_class` default to empty (`:58-67`), yet live they are `max-website.yitv97ysj0.gad61abkao.ankra.cc` and `traefik`. None of the three appear in the `deploy_inputs` that `get_application_deployments` returns. Ankra fills them in from somewhere the API did not show, probably the cluster's generated domain (the [Applications page](https://docs.ankra.ai/concepts/applications.md) mentions `${{ ankra.cluster_domain }}`). Reading the repo alone, you would expect no Ingress.
 2. The ClusterIssuer is called `letsencrypt-prod` but issues from ZeroSSL, not Let's Encrypt.
 3. The live Ingress has a Traefik middleware annotation and two Middleware objects that the repo does not define. Ankra adds them.
-4. The pipeline's `test` stage runs in `node:24-alpine` (`.ankra/pipeline.yaml:35`), while the image is built on `node:26-alpine` (`Dockerfile:2`) since PR #15. Dependabot's `docker` ecosystem updates the `Dockerfile` but did not touch `.ankra/pipeline.yaml`, so tests and build now run on different Node majors.
+4. Fixed on this branch. The pipeline's `test` stage ran `node:24-alpine` while the image built on `node:26-alpine` (`Dockerfile:2`) after PR #15. Dependabot updates the `Dockerfile` but not `.ankra/pipeline.yaml`, so the next Node major needs the same manual edit.
 5. `ingress_extra_hosts`, `redirect_hosts`, and `env_from_secrets` are declared options, but no manifest in `.ankra/manifests/` references them. Setting them would only take effect if Ankra injects them itself, as it does for the replica count and resources.
 6. The README (`README.md:31-37`) explains how to build to `out/` but says nothing about the container, Ankra, or where the site runs.
 
